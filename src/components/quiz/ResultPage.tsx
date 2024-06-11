@@ -37,7 +37,7 @@ function timeToScore(time: number): number {
         return MAX_TIME_BONUS;
     }
 
-    const score = MAX_TIME_BONUS * (1 - time / MAX_TIME);
+    const score = MAX_TIME_BONUS * (0.5 - time / MAX_TIME);
 
     return Math.max(0, Math.floor(score));
 }

@@ -9,7 +9,7 @@ import {shuffleArray} from "../utils/util.ts";
 import Question from "../components/quiz/Question.tsx";
 import ResultPage from "../components/quiz/ResultPage.tsx";
 
-const GRACEPERIOD = 1.0;
+const GRACEPERIOD = 0.5;
 
 function QuizPage() {
     const {quizId} = useParams();
@@ -45,10 +45,9 @@ function QuizPage() {
         setQuiz({...quiz, questions: updatedQuestions});
     };
 
-    const nextQuestion = () => {
+    const nextQuestion = (time: number) => {
         if (questionStartTime) {
-            const currentTime = Date.now();
-            const timeTaken = (currentTime - questionStartTime) / 1000 - GRACEPERIOD;
+            const timeTaken = (time - questionStartTime) / 1000 - GRACEPERIOD;
             setQuestionTimes([...questionTimes, timeTaken]);
         }
         setActiveQuestionindex(prev => prev + 1);

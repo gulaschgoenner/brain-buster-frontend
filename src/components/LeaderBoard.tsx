@@ -10,7 +10,7 @@ function Leaderboard({scores}: Props) {
     return (
         <>
             <h3>
-                Leaderboard
+                Rangliste
             </h3>
             <table>
                 <thead>
