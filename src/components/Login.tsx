@@ -15,7 +15,6 @@ function Login() {
 
     const handleKeyPress = (event: KeyboardEvent) => {
         if (event.ctrlKey && event.shiftKey) {
-            console.log(event);
             switch (event.code) {
                 case "Digit1":
                     setUsername("Player 1");

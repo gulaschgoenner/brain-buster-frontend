@@ -9,11 +9,15 @@ import {shuffleArray} from "../utils/util.ts";
 import Question from "../components/quiz/Question.tsx";
 import ResultPage from "../components/quiz/ResultPage.tsx";
 
+const GRACEPERIOD = 1.0;
+
 function QuizPage() {
     const {quizId} = useParams();
     //TODO: Quiz vom backend holen (once)
     const [quiz, setQuiz] = useState<Quiz>(QUIZ1);
-    const [activeQuestionIndex, setActiveQuestionindex] = useState(0)
+    const [activeQuestionIndex, setActiveQuestionindex] = useState(0);
+    const [questionStartTime, setQuestionStartTime] = useState<number | null>(null);
+    const [questionTimes, setQuestionTimes] = useState<number[]>([]);
 
     useEffect(() => {
         const shuffledQuestions = quiz.questions!.map(question => {
@@ -21,7 +25,15 @@ function QuizPage() {
             return {...question, answers: shuffledAnswers};
         });
         setQuiz({...quiz, questions: shuffleArray(shuffledQuestions)});
-    }, [])
+        setQuestionStartTime(Date.now());
+    }, []);
+
+    useEffect(() => {
+        // Set the start time for the new question
+        if (activeQuestionIndex < quiz.questions.length) {
+            setQuestionStartTime(Date.now());
+        }
+    }, [activeQuestionIndex]);
 
     const handleSetAnswers = (questionIndex: number, updatedAnswers: Answer[]) => {
         const updatedQuestions = quiz.questions!.map((question, index) => {
@@ -31,6 +43,15 @@ function QuizPage() {
             return question;
         });
         setQuiz({...quiz, questions: updatedQuestions});
+    };
+
+    const nextQuestion = () => {
+        if (questionStartTime) {
+            const currentTime = Date.now();
+            const timeTaken = (currentTime - questionStartTime) / 1000 - GRACEPERIOD;
+            setQuestionTimes([...questionTimes, timeTaken]);
+        }
+        setActiveQuestionindex(prev => prev + 1);
     };
 
     return (
@@ -44,8 +65,8 @@ function QuizPage() {
             {activeQuestionIndex < quiz.questions.length ?
                 <Question question={quiz.questions[activeQuestionIndex]}
                           handleSetAnswers={(updatedAnswers: Answer[]) => handleSetAnswers(activeQuestionIndex, updatedAnswers)}
-                          nextQuestion={() => setActiveQuestionindex(prev => prev + 1)}/>
-                : <ResultPage quiz={quiz}/>}
+                          nextQuestion={nextQuestion}/>
+                : <ResultPage quiz={quiz} questionTimes={questionTimes}/>}
         </>
     )
 }

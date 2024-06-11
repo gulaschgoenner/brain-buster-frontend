@@ -2,10 +2,10 @@ import {BrowserRouter, Navigate, Route, Routes as ReactRoutes, useLocation} from
 import HomePage from "./pages/HomePage.tsx";
 import Login from "./components/Login.tsx";
 import {UserContext} from "./App.tsx";
-import {useContext} from "react";
+import {ReactElement, useContext} from "react";
 import QuizPage from "./pages/QuizPage.tsx";
 
-const ProtectedRoute: React.FC<{ children: JSX.Element }> = ({children}) => {
+const ProtectedRoute: React.FC<{ children: ReactElement }> = ({children}) => {
     const userContext = useContext(UserContext);
     const location = useLocation();
     const loggedIn = !!userContext?.user?.name;
