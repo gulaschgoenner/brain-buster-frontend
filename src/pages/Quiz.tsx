@@ -11,9 +11,9 @@ function Quiz() {
         <>
             <Helmet title={"Quiz | BrainBuster"}/>
             <button onClick={() => navigate("/")}>Zur Homepage</button>
-            <h1>
+            <h2>
                 Quiz {quizId}
-            </h1>
+            </h2>
         </>
     )
 }

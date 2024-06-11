@@ -1,4 +1,4 @@
-import {Quiz, QuizShort} from "../../utils/types.tsx";
+import {PlayerScore, Quiz, QuizShort} from "../../utils/types.tsx";
 
 export const QUIZZES: QuizShort[] = [
     {
@@ -90,3 +90,26 @@ export const QUIZ2: Quiz = {
         },
     ],
 }
+
+export const PLAYER_SCORES: PlayerScore[] = [
+    {
+        id: "123",
+        score: 1010,
+        name: "Player1",
+    },
+    {
+        id: "234",
+        score: 2020,
+        name: "Player2",
+    },
+    {
+        id: "345",
+        score: 3030,
+        name: "Player3",
+    },
+    {
+        id: "456",
+        score: 800,
+        name: "Gönndalf",
+    }
+]
