@@ -1,9 +1,8 @@
 import '../App.css'
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {UserContext} from "../App.tsx";
 import {useLocation, useNavigate} from "react-router-dom";
 import {Helmet} from "react-helmet";
-
 
 function Login() {
     const userContext = useContext(UserContext);
@@ -14,8 +13,35 @@ function Login() {
     const [error, setError] = useState(false);
     const from = location.state?.from?.pathname || "/";
 
+    const handleKeyPress = (event: KeyboardEvent) => {
+        if (event.ctrlKey && event.shiftKey) {
+            console.log(event);
+            switch (event.code) {
+                case "Digit1":
+                    setUsername("Player 1");
+                    setPassword("password");
+                    break;
+                case "Digit2":
+                    setUsername("Player 2");
+                    setPassword("password");
+                    break;
+                case "Digit3":
+                    setUsername("GulaschGönner");
+                    setPassword("Dönerstag");
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
-    console.log(userContext);
+    useEffect(() => {
+        window.addEventListener('keydown', handleKeyPress);
+        return () => {
+            window.removeEventListener('keydown', handleKeyPress);
+        };
+    }, []);
+
     return (
         <div className={"d-flex flex-column"}>
             <Helmet title={"Login | BrainBuster"}/>

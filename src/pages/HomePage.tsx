@@ -13,7 +13,7 @@ function HomePage() {
             <Helmet title={"Home | BrainBuster"}/>
             <Navigation/>
             <h2>
-                HomePage
+                Home
             </h2>
         </>
     )
