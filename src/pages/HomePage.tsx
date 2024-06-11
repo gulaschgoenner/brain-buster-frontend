@@ -8,9 +8,9 @@ function HomePage() {
     console.log(data);
     return (
         <>
-            <div>
-                {data.toString()}
-            </div>
+            <h1>
+                HomePage
+            </h1>
         </>
     )
 }
