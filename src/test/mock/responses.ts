@@ -1,6 +1,6 @@
 import {Quiz, QuizShort} from "../../utils/types.tsx";
 
-export const quizzes: QuizShort[] = [
+export const QUIZZES: QuizShort[] = [
     {
         id: "1",
         name: "Allgemeinwissen",
@@ -15,7 +15,7 @@ export const quizzes: QuizShort[] = [
     },
 ];
 
-export const quiz1: Quiz = {
+export const QUIZ1: Quiz = {
     id: "1",
     name: "Allgemeinwissen",
     description: "Ein Quiz, um dein Allgemeinwissen zu testen.",
@@ -53,7 +53,7 @@ export const quiz1: Quiz = {
     ],
 }
 
-export const quiz2: Quiz = {
+export const QUIZ2: Quiz = {
     id: "2",
     name: "Mathematik",
     description: "Teste dein Wissen in Mathematik.",
