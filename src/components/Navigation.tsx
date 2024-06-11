@@ -9,7 +9,7 @@ interface Props {
     progress?: number;
 }
 
-function Navigation({progress, ...props}: Props) {
+function Navigation({progress}: Props) {
     const userContext = useContext(UserContext);
     const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ function Navigation({progress, ...props}: Props) {
                     <ProgressBar progress={progress}/>
                 }
                 <div className={styles.userdata}>
-                    <div className="username-navigation">{userContext!.user!.name}</div>
+                    <b className="username-navigation">{userContext!.user!.name}</b>
                     <button onClick={() => {
                         userContext!.setUser!({name: undefined})
                         navigate("/login");

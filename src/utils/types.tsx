@@ -2,7 +2,7 @@ export type Quiz = {
     id: string;
     name: string;
     description: string;
-    questions?: Question[];
+    questions: Question[];
 };
 
 export type QuizShort = {
@@ -22,6 +22,7 @@ export type Answer = {
     id: string;
     text: string;
     isTrue: boolean;
+    isClicked?: boolean;
 };
 
 export type PlayerScore = {
