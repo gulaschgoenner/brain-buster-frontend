@@ -5,6 +5,7 @@ import {PLAYER_SCORES} from "../../test/mock/responses.ts";
 interface Props {
     quiz: Quiz;
     questionTimes: number[];
+    tryAgain: () => void;
 }
 
 const MAX_TIME = 10;
@@ -42,7 +43,7 @@ function timeToScore(time: number): number {
     return Math.max(0, Math.floor(score));
 }
 
-function ResultPage({quiz, questionTimes}: Props) {
+function ResultPage({quiz, questionTimes, tryAgain}: Props) {
     const endScore = getAnswerScore(quiz) + getSpeedScore(quiz, questionTimes);
     const speedBonus = Math.round(100 * (getSpeedScore(quiz, questionTimes) / (quiz.questions.length * MAX_TIME_BONUS)));
     return (
@@ -53,6 +54,7 @@ function ResultPage({quiz, questionTimes}: Props) {
             <p>Antwortpunkte: {getAnswerScore(quiz)}</p>
             <p>Geschwindigkeitpunkte: {getSpeedScore(quiz, questionTimes)}</p>
             <p>Geschwindigkeitsbonus: {speedBonus}%</p>
+            <button id={"try-again"} onClick={() => tryAgain()}>Erneut Versuchen</button>
             <Leaderboard scores={PLAYER_SCORES}/>
         </>
     );

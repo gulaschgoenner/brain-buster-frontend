@@ -19,14 +19,20 @@ function Login() {
                 case "Digit1":
                     setUsername("Player 1");
                     setPassword("password");
+                    userContext!.setUser!({name: "Player 1"});
+                    navigate(from, {replace: true});
                     break;
                 case "Digit2":
                     setUsername("Player 2");
                     setPassword("password");
+                    userContext!.setUser!({name: "Player 2"});
+                    navigate(from, {replace: true});
                     break;
                 case "Digit3":
                     setUsername("GulaschGönner");
                     setPassword("Dönerstag");
+                    userContext!.setUser!({name: "GulaschGönner"});
+                    navigate(from, {replace: true});
                     break;
                 default:
                     break;

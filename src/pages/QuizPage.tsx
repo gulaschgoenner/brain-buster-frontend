@@ -11,6 +11,7 @@ import ResultPage from "../components/quiz/ResultPage.tsx";
 
 const GRACEPERIOD = 0.5;
 
+
 function QuizPage() {
     const {quizId} = useParams();
     //TODO: Quiz vom backend holen (once)
@@ -19,12 +20,16 @@ function QuizPage() {
     const [questionStartTime, setQuestionStartTime] = useState<number | null>(null);
     const [questionTimes, setQuestionTimes] = useState<number[]>([]);
 
-    useEffect(() => {
+    function shuffleQuestions() {
         const shuffledQuestions = quiz.questions!.map(question => {
             const shuffledAnswers = shuffleArray(question.answers.map(answer => ({...answer, isClicked: false})));
             return {...question, answers: shuffledAnswers};
         });
         setQuiz({...quiz, questions: shuffleArray(shuffledQuestions)});
+    }
+
+    useEffect(() => {
+        shuffleQuestions();
         setQuestionStartTime(Date.now());
     }, []);
 
@@ -53,6 +58,13 @@ function QuizPage() {
         setActiveQuestionindex(prev => prev + 1);
     };
 
+    const tryAgain = () => {
+        setActiveQuestionindex(0);
+        setQuestionTimes([]);
+        shuffleQuestions();
+        setQuestionStartTime(Date.now());
+    };
+
     return (
         <>
             <Helmet title={"Quiz | BrainBuster"}/>
@@ -65,7 +77,7 @@ function QuizPage() {
                 <Question question={quiz.questions[activeQuestionIndex]}
                           handleSetAnswers={(updatedAnswers: Answer[]) => handleSetAnswers(activeQuestionIndex, updatedAnswers)}
                           nextQuestion={nextQuestion}/>
-                : <ResultPage quiz={quiz} questionTimes={questionTimes}/>}
+                : <ResultPage quiz={quiz} questionTimes={questionTimes} tryAgain={tryAgain}/>}
         </>
     )
 }

@@ -11,7 +11,6 @@ interface Props {
 function Question({question, handleSetAnswers, nextQuestion}: Props) {
     const [finished, setFinished] = useState(false);
     const [time, setTime] = useState(0);
-    console.log(finished);
     return (
         <>
             <h4>{question.text}</h4>
@@ -21,24 +20,26 @@ function Question({question, handleSetAnswers, nextQuestion}: Props) {
                          showCorrect={finished}
                 />
             </div>
-            {
-                !finished ?
-                    <button onClick={() => {
-                        setTime(Date.now())
-                        //TODO:
-                        //Questiontime anzeigen
-                        setFinished(true)
-                    }}>
-                        Einreichen
-                    </button> :
-                    <button onClick={() => {
-                        setTime(0);
-                        setFinished(false)
-                        nextQuestion(time)
-                    }}>
-                        Weiter
-                    </button>
-            }
+            <div className={"d-flex"}>
+                {
+                    !finished ?
+                        <button onClick={() => {
+                            setTime(Date.now())
+                            //TODO:
+                            //Questiontime anzeigen
+                            setFinished(true)
+                        }}>
+                            Einreichen
+                        </button> :
+                        <button onClick={() => {
+                            setTime(0);
+                            setFinished(false)
+                            nextQuestion(time)
+                        }}>
+                            Weiter
+                        </button>
+                }
+            </div>
         </>
     );
 }
