@@ -1,15 +1,18 @@
 import '../App.css'
 import {useContext, useState} from "react";
 import {UserContext} from "../App.tsx";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 
 function Login() {
     const userContext = useContext(UserContext);
+    const location = useLocation();
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
+    const from = location.state?.from?.pathname || "/";
+
 
     console.log(userContext);
     return (
@@ -54,7 +57,7 @@ function Login() {
                         if (userContext?.setUser != undefined) {
                             userContext.setUser({name: username});
                         }
-                        navigate('/');
+                        navigate(from, {replace: true});
                     }
                     }>
                 Anmelden
