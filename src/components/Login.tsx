@@ -2,6 +2,7 @@ import '../App.css'
 import {useContext, useState} from "react";
 import {UserContext} from "../App.tsx";
 import {useLocation, useNavigate} from "react-router-dom";
+import {Helmet} from "react-helmet";
 
 
 function Login() {
@@ -17,12 +18,14 @@ function Login() {
     console.log(userContext);
     return (
         <div className={"d-flex flex-column"}>
+            <Helmet title={"Login | BrainBuster"}/>
             <h2>
                 Login
             </h2>
             {error && <p>Anmeldedaten ungültig, versuche es erneut.</p>}
             <label htmlFor="username-input">Benutzername</label>
             <input id={"username-input"}
+                   type={"text"}
                    name={"username"}
                    value={username}
                    onChange={(event) => {
@@ -31,6 +34,7 @@ function Login() {
             />
             <label htmlFor="password-input">Passwort</label>
             <input id={"password-input"}
+                   type={"password"}
                    name={"password"}
                    value={password}
                    onChange={(event) => {
