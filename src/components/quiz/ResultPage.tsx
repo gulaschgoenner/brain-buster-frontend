@@ -1,6 +1,7 @@
-import {Answer, Quiz} from "../../utils/types.tsx";
+import {Quiz} from "../../utils/types.tsx";
 import Leaderboard from "../LeaderBoard.tsx";
 import {PLAYER_SCORES} from "../../test/mock/responses.ts";
+import {getAnswerScore, getCorrectAnswerCount, getSpeedScore, MAX_TIME_BONUS} from "../../utils/result.ts";
 
 interface Props {
     quiz: Quiz;
@@ -8,40 +9,6 @@ interface Props {
     tryAgain: () => void;
 }
 
-const MAX_TIME = 10;
-const MAX_TIME_BONUS = 100;
-const QUESTION_POINTS = 100;
-
-function hasCorrectAnswers(answers: Answer[]) {
-    return answers.filter(a => a.isTrue !== !!a.isClicked).length === 0
-}
-
-function getCorrectAnswerCount(quiz: Quiz) {
-    return quiz.questions.filter(q => hasCorrectAnswers(q.answers)).length
-}
-
-function getAnswerScore(quiz: Quiz) {
-    return getCorrectAnswerCount(quiz) * QUESTION_POINTS
-}
-
-function getSpeedScore(quiz: Quiz, questionTimes: number[]) {
-    let score = 0;
-    quiz.questions.forEach((q, i) => {
-        score += hasCorrectAnswers(q.answers) ? timeToScore(questionTimes[i]) : 0
-    })
-    return score
-}
-
-function timeToScore(time: number): number {
-
-    if (time <= 0) {
-        return MAX_TIME_BONUS;
-    }
-
-    const score = MAX_TIME_BONUS * (0.5 - time / MAX_TIME);
-
-    return Math.max(0, Math.floor(score));
-}
 
 function ResultPage({quiz, questionTimes, tryAgain}: Props) {
     const endScore = getAnswerScore(quiz) + getSpeedScore(quiz, questionTimes);

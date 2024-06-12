@@ -1,4 +1,3 @@
-// Checkbox.tsx
 import React from 'react';
 import styles from '../components.module.scss';
 import clsx from "clsx";

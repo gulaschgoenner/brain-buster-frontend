@@ -38,6 +38,13 @@ export type Player = {
 };
 
 
+export type Score = {
+    playerid: string;
+    quizid: string;
+    score: number;
+};
+
+
 // export enum QuestionType {
 //     STANDARD = "STANDARD",
 //     ESTIMATION = "ESTIMATION",

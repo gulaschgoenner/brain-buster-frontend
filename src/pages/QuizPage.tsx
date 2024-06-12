@@ -1,5 +1,4 @@
 import '../App.css'
-import {useParams} from "react-router-dom";
 import {Helmet} from 'react-helmet';
 import Navigation from "../components/Navigation.tsx";
 import {QUIZ1} from "../test/mock/responses.ts";
@@ -8,13 +7,15 @@ import {Answer, Quiz} from "../utils/types.tsx";
 import {shuffleArray} from "../utils/util.ts";
 import Question from "../components/quiz/Question.tsx";
 import ResultPage from "../components/quiz/ResultPage.tsx";
+import axios from "axios";
+import {getAnswerScore, getSpeedScore} from "../utils/result.ts";
 
 const GRACEPERIOD = 0.5;
 
 
 function QuizPage() {
-    const {quizId} = useParams();
-    //TODO: Quiz vom backend holen (once)
+    //TODO: Quiz vom backend holen (once and for try again)
+    //const {quizId} = useParams();
     const [quiz, setQuiz] = useState<Quiz>(QUIZ1);
     const [activeQuestionIndex, setActiveQuestionindex] = useState(0);
     const [questionStartTime, setQuestionStartTime] = useState<number | null>(null);
@@ -32,6 +33,17 @@ function QuizPage() {
         shuffleQuestions();
         setQuestionStartTime(Date.now());
     }, []);
+
+    useEffect(() => {
+        if (activeQuestionIndex == quiz.questions.length) {
+            //TODO: testen
+            axios.post("/score", {
+                quizid: quiz.id,
+                score: getAnswerScore(quiz) + getSpeedScore(quiz, questionTimes),
+                playerid: "TODO" //TODO
+            })
+        }
+    }, [activeQuestionIndex]);
 
     useEffect(() => {
         // Set the start time for the new question
@@ -64,6 +76,7 @@ function QuizPage() {
         shuffleQuestions();
         setQuestionStartTime(Date.now());
     };
+
 
     return (
         <>
