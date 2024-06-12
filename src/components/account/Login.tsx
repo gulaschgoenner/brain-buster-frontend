@@ -1,6 +1,6 @@
-import '../App.css'
+import '../../App.css'
 import {useContext, useEffect, useState} from "react";
-import {UserContext} from "../App.tsx";
+import {UserContext} from "../../App.tsx";
 import {useLocation, useNavigate} from "react-router-dom";
 import {Helmet} from "react-helmet";
 

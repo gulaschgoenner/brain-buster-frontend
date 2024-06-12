@@ -21,7 +21,7 @@ function Navigation({progress}: Props) {
                     <ProgressBar progress={progress}/>
                 }
                 <div className={styles.userdata}>
-                    <b className="username-navigation">{userContext!.user!.name}</b>
+                    <b style={{whiteSpace: "nowrap"}}>{userContext!.user!.name}</b>
                     <button onClick={() => {
                         userContext!.setUser!({name: undefined})
                         navigate("/login");

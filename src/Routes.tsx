@@ -1,6 +1,6 @@
 import {BrowserRouter, Navigate, Route, Routes as ReactRoutes, useLocation} from "react-router-dom";
 import HomePage from "./pages/HomePage.tsx";
-import Login from "./components/Login.tsx";
+import Login from "./components/account/Login.tsx";
 import {UserContext} from "./App.tsx";
 import {ReactElement, useContext} from "react";
 import QuizPage from "./pages/QuizPage.tsx";
