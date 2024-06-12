@@ -9,9 +9,9 @@ function Leaderboard({scores}: Props) {
 
     return (
         <>
-            <h3>
+            <h4>
                 Rangliste
-            </h3>
+            </h4>
             <table>
                 <thead>
                 <tr>
