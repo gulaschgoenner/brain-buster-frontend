@@ -3,6 +3,7 @@ export type Quiz = {
     name: string;
     description: string;
     questions: Question[];
+    scores: PlayerScore[];
 };
 
 export type QuizShort = {
@@ -39,8 +40,8 @@ export type Player = {
 
 
 export type Score = {
-    playerid: string;
-    quizid: string;
+    playername: string;
+    quizname: string;
     score: number;
 };
 

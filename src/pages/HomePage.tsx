@@ -1,20 +1,31 @@
-import '../App.css'
-import {QuizShort} from "../utils/types.tsx";
-import {QUIZZES} from "../test/mock/responses.ts";
+import '../App.css';
 import {Helmet} from "react-helmet";
 import Navigation from "../components/Navigation.tsx";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
+import {BACKEND_BASE_URL} from '../utils/constants.ts'
+import {useEffect, useState} from "react";
+import {QuizShort} from "../utils/types.tsx";
 
 function HomePage() {
-    // const {data, error, isLoading} = useSWR('/quiz', fetcher);
-    const data: QuizShort[] = QUIZZES;
+    const [data, setData] = useState<QuizShort[]>([]);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        axios.get(BACKEND_BASE_URL + "/quiz")
+            .then(response => {
+                setData(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching quizzes:', error);
+            });
+    }, []);
 
     return (
         <>
             <Helmet title={"Home | BrainBuster"}/>
             <Navigation/>
-            {data.map(quiz =>
+            {data && data.map(quiz =>
                 <section key={quiz.id} className="quiz-section" onClick={() => {
                     navigate("/quiz/" + quiz.id)
                 }}>

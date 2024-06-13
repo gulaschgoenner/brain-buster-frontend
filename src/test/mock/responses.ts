@@ -1,5 +1,27 @@
 import {PlayerScore, Quiz, QuizShort} from "../../utils/types.tsx";
 
+export const PLAYER_SCORES: PlayerScore[] = [
+    {
+        id: "123",
+        score: 1010,
+        name: "Player1",
+    },
+    {
+        id: "234",
+        score: 2020,
+        name: "Player2",
+    },
+    {
+        id: "345",
+        score: 3030,
+        name: "Player3",
+    },
+    {
+        id: "456",
+        score: 800,
+        name: "Gönndalf",
+    }
+]
 export const QUIZZES: QuizShort[] = [
     {
         id: "1",
@@ -19,6 +41,7 @@ export const QUIZ1: Quiz = {
     id: "1",
     name: "Allgemeinwissen",
     description: "Ein Quiz, um dein Allgemeinwissen zu testen.",
+    scores: PLAYER_SCORES,
     questions: [
         {
             id: "1-1",
@@ -57,6 +80,7 @@ export const QUIZ2: Quiz = {
     id: "2",
     name: "Mathematik",
     description: "Teste dein Wissen in Mathematik.",
+    scores: PLAYER_SCORES,
     questions: [
         {
             id: "2-1",
@@ -90,26 +114,3 @@ export const QUIZ2: Quiz = {
         },
     ],
 }
-
-export const PLAYER_SCORES: PlayerScore[] = [
-    {
-        id: "123",
-        score: 1010,
-        name: "Player1",
-    },
-    {
-        id: "234",
-        score: 2020,
-        name: "Player2",
-    },
-    {
-        id: "345",
-        score: 3030,
-        name: "Player3",
-    },
-    {
-        id: "456",
-        score: 800,
-        name: "Gönndalf",
-    }
-]

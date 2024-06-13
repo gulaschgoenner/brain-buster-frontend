@@ -1,6 +1,5 @@
 import {Quiz} from "../../utils/types.tsx";
 import Leaderboard from "../LeaderBoard.tsx";
-import {PLAYER_SCORES} from "../../test/mock/responses.ts";
 import {getAnswerScore, getCorrectAnswerCount, getSpeedScore, MAX_TIME_BONUS} from "../../utils/result.ts";
 
 interface Props {
@@ -25,7 +24,7 @@ function ResultPage({quiz, questionTimes, tryAgain}: Props) {
                 <button id={"try-again"} onClick={() => tryAgain()}>Erneut Versuchen</button>
             </div>
             <div className={"p-3"}>
-                <Leaderboard scores={PLAYER_SCORES}/>
+                <Leaderboard scores={quiz.scores}/>
             </div>
         </div>
     );

@@ -9,17 +9,35 @@ import Question from "../components/quiz/Question.tsx";
 import ResultPage from "../components/quiz/ResultPage.tsx";
 import axios from "axios";
 import {getAnswerScore, getSpeedScore} from "../utils/result.ts";
+import {BACKEND_BASE_URL} from "../utils/constants.ts";
+import {useParams} from "react-router-dom";
 
 const GRACEPERIOD = 0.5;
 
 
 function QuizPage() {
-    //TODO: Quiz vom backend holen (once and for try again)
-    //const {quizId} = useParams();
+    const {quizId} = useParams();
     const [quiz, setQuiz] = useState<Quiz>(QUIZ1);
+    const [trigger, setTrigger] = useState<boolean>(false);
     const [activeQuestionIndex, setActiveQuestionindex] = useState(0);
     const [questionStartTime, setQuestionStartTime] = useState<number | null>(null);
     const [questionTimes, setQuestionTimes] = useState<number[]>([]);
+
+    useEffect(() => {
+            axios.get(BACKEND_BASE_URL + "/quiz/" + quizId)
+                .then(response => {
+                    setQuiz(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching quizzes:', error);
+                });
+            setTrigger(true)
+    }, []);
+
+    useEffect(() => {
+        shuffleQuestions();
+        setQuestionStartTime(Date.now());
+    }, [trigger]);
 
     function shuffleQuestions() {
         const shuffledQuestions = quiz.questions!.map(question => {
@@ -30,14 +48,9 @@ function QuizPage() {
     }
 
     useEffect(() => {
-        shuffleQuestions();
-        setQuestionStartTime(Date.now());
-    }, []);
-
-    useEffect(() => {
         if (activeQuestionIndex == quiz.questions.length) {
             //TODO: testen
-            axios.post("/score", {
+            axios.post(BACKEND_BASE_URL + "/score", {
                 quizid: quiz.id,
                 score: getAnswerScore(quiz) + getSpeedScore(quiz, questionTimes),
                 playerid: "TODO" //TODO
@@ -81,7 +94,6 @@ function QuizPage() {
     return (
         <>
             <Helmet title={"Quiz | BrainBuster"}/>
-            {/*TODO: Beantwortete Fragen zu Count umwandeln*/}
             <Navigation progress={activeQuestionIndex * 100 / quiz.questions.length}/>
             <h2>
                 Quiz: {quiz.name}

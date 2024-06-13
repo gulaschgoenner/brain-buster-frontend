@@ -5,6 +5,7 @@ import Routes from "./Routes.tsx";
 
 interface User {
     name?: string;
+    id?: string;
 }
 
 interface UserContext {

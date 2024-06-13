@@ -3,6 +3,8 @@ import {useContext, useEffect, useState} from "react";
 import {UserContext} from "../../App.tsx";
 import {useLocation, useNavigate} from "react-router-dom";
 import {Helmet} from "react-helmet";
+import axios from "axios";
+import {BACKEND_BASE_URL} from "../../utils/constants.ts";
 
 function Login() {
     const userContext = useContext(UserContext);
@@ -77,17 +79,17 @@ function Login() {
                     disabled={username.length < 1 || password.length < 1}
                     onClick={() => {
                         setError(false)
-                        // axios.get("/validate/" + username + "/" + sha256(password))
-                        //     .then(response => {
-                        //         if (response.data) {
-                        //             userContext.name = username;
-                        //             navigate('/');
-                        //         }
-                        //     })
-                        //     .catch(error => {
-                        //         setError(true)
-                        //         console.error('Error fetching data:', error);
-                        //     })
+                        axios.get(BACKEND_BASE_URL + "/player/" + username)
+                            .then(response => {
+                                if (response.data && userContext?.setUser != undefined) {
+                                    userContext.setUser({name: response.data.username, id:response.data.id});
+                                    navigate(from, {replace: true});
+                                }
+                            })
+                            .catch(error => {
+                                setError(true)
+                                console.error('Error fetching data:', error);
+                            })
                         // TODO: rausnehmen, wenn backend angepasst
                         if (userContext?.setUser != undefined) {
                             userContext.setUser({name: username});
