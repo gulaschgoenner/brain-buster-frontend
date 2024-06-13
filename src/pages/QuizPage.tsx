@@ -1,7 +1,6 @@
 import '../App.css'
 import {Helmet} from 'react-helmet';
 import Navigation from "../components/Navigation.tsx";
-import {QUIZ1} from "../test/mock/responses.ts";
 import {useEffect, useState} from "react";
 import {Answer, Quiz} from "../utils/types.tsx";
 import {shuffleArray} from "../utils/util.ts";
@@ -11,13 +10,14 @@ import axios from "axios";
 import {getAnswerScore, getSpeedScore} from "../utils/result.ts";
 import {BACKEND_BASE_URL} from "../utils/constants.ts";
 import {useParams} from "react-router-dom";
+import {INITIAL_QUIZ} from "../utils/initial.tsx";
 
 const GRACEPERIOD = 0.5;
 
 
 function QuizPage() {
     const {quizId} = useParams();
-    const [quiz, setQuiz] = useState<Quiz>(QUIZ1);
+    const [quiz, setQuiz] = useState<Quiz>(INITIAL_QUIZ);
     const [trigger, setTrigger] = useState<boolean>(false);
     const [activeQuestionIndex, setActiveQuestionindex] = useState(0);
     const [questionStartTime, setQuestionStartTime] = useState<number | null>(null);

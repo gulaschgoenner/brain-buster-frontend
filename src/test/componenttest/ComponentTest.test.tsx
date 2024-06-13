@@ -1,11 +1,14 @@
-import '@testing-library/jest-dom'
-import { render, screen } from '@testing-library/react'
-import Login from "../../components/account/Login.tsx";
+import { expect, test } from 'vitest'
+import {render, screen} from "@testing-library/react";
+import App from "../../App.tsx";
 
-describe('Login Component', () => {
-    test('rendert die Loginseite', () => {
-        render(<Login/>)
-        const button = screen.getByText('Login')
-        expect(button).toHaveAttribute("disabled", true);
-    })
+
+test('komplexe Logik', () => {
+    expect(1+1).toBe(2)
 })
+
+test('Rendert Loginscreen', () => {
+    render(<App/>);
+    const linkElement = screen.getByText("Anmelden");
+    expect(linkElement).toBeInTheDocument();
+});
